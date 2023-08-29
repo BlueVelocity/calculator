@@ -6,11 +6,12 @@ const equalsButton = document.getElementById('button-equals');
 const displayCurrent = document.querySelector('.display-current');
 const displayPrevious = document.querySelector('.display-previous');
 
-let operantOne = "";
-let leftoverOperant = false;
-let operantTwo = "";
-let operator = "";
-let previousOperation = "";
+const memory = {
+    operantOne: "",
+    operantTwo: "",
+    leftoverOperant: false,
+    operator: "",
+}
 
 numberButtons.forEach(numberElement => {
     numberElement.addEventListener('click', () => {
@@ -41,52 +42,52 @@ equalsButton.addEventListener('click', equals);
 
 function equals() {
     displayPrevious.textContent = displayCurrent.textContent;
-    displayCurrent.textContent = calculate(operantOne, operantTwo, operator);
-    operantOne = displayCurrent.textContent;
-    operantTwo = "";
-    operator = "";
-    leftoverOperant = true;
+    displayCurrent.textContent = calculate(memory.operantOne, memory.operantTwo, memory.operator);
+    memory.operantOne = displayCurrent.textContent;
+    memory.operantTwo = "";
+    memory.operator = "";
+    memory.leftoverOperant = true;
 }
 
 function clearCurrent() {
-    operantOne = "";
-    operantTwo = "";
-    operator = "";
+    memory.operantOne = "";
+    memory.operantTwo = "";
+    memory.operator = "";
     displayCurrent.textContent = "";
 }
 
 function clearAll() {
-    operantOne = "";
-    operantTwo = "";
-    operator = "";
+    memory.operantOne = "";
+    memory.operantTwo = "";
+    memory.operator = "";
     displayCurrent.textContent = "";
     displayPrevious.textContent = "";
 }
 
 function clearLeftoverOperant() {
-    if (leftoverOperant === true) {
-        leftoverOperant = false;
+    if (memory.leftoverOperant === true) {
+        memory.leftoverOperant = false;
         displayCurrent.textContent = "";
-        operantOne = "";
+        memory.operantOne = "";
     }
 }
 
 function commitOperantOne(numberElement) {
-    operantOne += numberElement.getAttribute('data-input');
-    console.log(`OperantOne = ${operantOne}`)
+    memory.operantOne += numberElement.getAttribute('data-input');
+    console.log(`memory.OperantOne = ${memory.operantOne}`)
 }
 
 function commitOperantTwo(numberElement) {
-    operantTwo += numberElement.getAttribute('data-input');
-    console.log(`OperantTwo = ${operantTwo}`)
+    memory.operantTwo += numberElement.getAttribute('data-input');
+    console.log(`memory.OperantTwo = ${memory.operantTwo}`)
 }
 
 function commitOperator(operatorElement) {
-    operator = operatorElement.getAttribute('data-input');
+    memory.operator = operatorElement.getAttribute('data-input');
 }
 
 function isOperatorAlreadySelected() {
-    if (operator === "") {
+    if (memory.operator === "") {
         return false;
     } else {
         return true;
