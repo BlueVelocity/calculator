@@ -1,7 +1,9 @@
 const numberButtons = document.querySelectorAll('.button-number');
 const operatorButtons = document.querySelectorAll('.button-operator');
 const clearAllButton = document.getElementById('button-clear-all');
+const equalsButton = document.getElementById('button-equals');
 const displayCurrent = document.querySelector('.display-current');
+const displayPrevious = document.querySelector('.display-previous');
 
 let operantOne = "";
 let operantTwo = "";
@@ -29,6 +31,15 @@ operatorButtons.forEach(operatorElement => {
 });
 
 clearAllButton.addEventListener('click', clearAll);
+
+equalsButton.addEventListener('click', equals);
+
+function equals() {
+    displayPrevious.textContent = displayCurrent.textContent;
+    displayCurrent.textContent = calculate(operantOne, operantTwo, operator);
+    operantTwo = "";
+    operator = "";
+}
 
 function clearAll() {
     operantOne = "";
