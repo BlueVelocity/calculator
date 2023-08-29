@@ -2,22 +2,50 @@ const numberButtons = document.querySelectorAll('.button-number');
 const operatorButtons = document.querySelectorAll('.button-operator');
 const displayCurrent = document.querySelector('.display-current');
 
-let operantOne = null;
-let operantTwo = null;
-let operator = null;
+let operantOne = "";
+let operantTwo = "";
+let operator = "";
+let previousOperation = "";
 
-numberButtons.forEach(element => {
-    element.addEventListener('click', () => outputToCurrentDisplay(element))
+numberButtons.forEach(numberElement => {
+    numberElement.addEventListener('click', () => {
+        outputToCurrentDisplay(numberElement)
+        if (isOperatorAlreadySelected() === false) {
+            commitOperantOne(numberElement);
+        } else if (isOperatorAlreadySelected() === true) {
+            commitOperantTwo(numberElement);
+        }
+    })
 });
 
-operatorButtons.forEach(element => {
-    element.addEventListener('click', () => isOperatorAlreadySelected(element))
+operatorButtons.forEach(operatorElement => {
+    operatorElement.addEventListener('click', () => { 
+        if (isOperatorAlreadySelected() === false) {;
+            outputToCurrentDisplay(operatorElement);
+            commitOperator(operatorElement);
+        }
+    })
 });
 
-function isOperatorAlreadySelected(element) {
-    if (operator === null) {
-        operator = element.getAttribute('data-input');
-        return outputToCurrentDisplay(element);
+function commitOperantOne(numberElement) {
+    operantOne += numberElement.getAttribute('data-input');
+    console.log(`OperantOne = ${operantOne}`)
+}
+
+function commitOperantTwo(numberElement) {
+    operantTwo += numberElement.getAttribute('data-input');
+    console.log(`OperantTwo = ${operantTwo}`)
+}
+
+function commitOperator(operatorElement) {
+    operator = operatorElement.getAttribute('data-input');
+}
+
+function isOperatorAlreadySelected() {
+    if (operator === "") {
+        return false;
+    } else {
+        return true;
     }
 }
 
