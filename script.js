@@ -123,15 +123,19 @@ function outputToCurrentDisplay(element) {
 }
 
 function calculate(operantOne, operantTwo, operator) {
-    switch(operator) {
-        case '+':
-            return add(operantOne, operantTwo);
-        case '-':
-            return subtract(operantOne, operantTwo);
-        case '*':
-            return multiply(operantOne, operantTwo);
-        case '/':
-            return divide(operantOne, operantTwo);
+    if (checkIfFool(operantOne, operantTwo, operator) === false) {
+        switch(operator) {
+            case '+':
+                return add(operantOne, operantTwo);
+            case '-':
+                return subtract(operantOne, operantTwo);
+            case '*':
+                return multiply(operantOne, operantTwo);
+            case '/':
+                return divide(operantOne, operantTwo);
+        }
+    } else {
+        return checkIfFool(operantOne, operantTwo, operator);
     }
 }
 
@@ -148,5 +152,15 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    return parseFloat(num1) / parseFloat(num2);
+        return parseFloat(num1) / parseFloat(num2);
+}
+
+function checkIfFool(input1, input2, operator) {
+    if (parseFloat(input2) == 0 && operator == '/' && input1 != "gigafool" && input1 != "fool") {
+        return "fool"
+    } else if (input1 == "fool" || input1 == "gigafool")  {
+        return "gigafool";
+    } else {
+        return false;
+    }
 }
