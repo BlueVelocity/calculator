@@ -66,10 +66,10 @@ button {
 }
 
 button:hover {
-    background-color: rgb(145, 255, 218);
+    background-color: rgb(251, 255, 192);
 }
 button:active {
-    background-color: rgb(112, 201, 171);
+    background-color: rgb(208, 211, 172);
 }
 
 .button-operator {
@@ -78,6 +78,10 @@ button:active {
 
 .button-operator:hover {
     background-color: rgb(255, 129, 255);
+}
+
+.button-operator:active {
+    background-color: rgb(212, 105, 212);
 }
 
 .display-buttons-container {
