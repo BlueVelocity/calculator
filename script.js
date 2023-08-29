@@ -2,6 +2,7 @@ const numberButtons = document.querySelectorAll('.button-number');
 const operatorButtons = document.querySelectorAll('.button-operator');
 const clearButton = document.getElementById('button-clear');
 const clearAllButton = document.getElementById('button-clear-all');
+const decimalButton = document.getElementById('button-decimal');
 const equalsButton = document.getElementById('button-equals');
 const displayCurrent = document.querySelector('.display-current');
 const displayPrevious = document.querySelector('.display-previous');
@@ -10,24 +11,17 @@ const memory = {
     operantOne: "",
     operantTwo: "",
     leftoverOperant: false,
+    decimalPresent: false,
     operator: "",
 }
 
 numberButtons.forEach(numberElement => {
-    numberElement.addEventListener('click', () => {
-        if (isOperatorAlreadySelected() === false) {
-            clearLeftoverOperant();
-            commitOperantOne(numberElement);
-        } else if (isOperatorAlreadySelected() === true) {
-            commitOperantTwo(numberElement);
-        }
-        outputToCurrentDisplay(numberElement)
-    })
+    numberElement.addEventListener('click', () => addToOperant(numberElement));
 });
 
 operatorButtons.forEach(operatorElement => {
     operatorElement.addEventListener('click', () => { 
-        if (isOperatorAlreadySelected() === false) {;
+        if (memory.operator === "") {;
             outputToCurrentDisplay(operatorElement);
             commitOperator(operatorElement);
         }
@@ -37,6 +31,13 @@ operatorButtons.forEach(operatorElement => {
 clearButton.addEventListener('click', clearCurrent);
 
 clearAllButton.addEventListener('click', clearAll);
+
+decimalButton.addEventListener('click', () => {
+    if (memory.decimalPresent === false) {
+        addToOperant(decimalButton);
+        memory.decimalPresent = true;
+    }
+});
 
 equalsButton.addEventListener('click', equals);
 
@@ -53,14 +54,12 @@ function clearCurrent() {
     memory.operantOne = "";
     memory.operantTwo = "";
     memory.operator = "";
+    memory.decimalPresent = false;
     displayCurrent.textContent = "";
 }
 
 function clearAll() {
-    memory.operantOne = "";
-    memory.operantTwo = "";
-    memory.operator = "";
-    displayCurrent.textContent = "";
+    clearCurrent();
     displayPrevious.textContent = "";
 }
 
@@ -72,26 +71,27 @@ function clearLeftoverOperant() {
     }
 }
 
+function addToOperant(numberElement) {
+    if (memory.operator === "") {
+        clearLeftoverOperant();
+        commitOperantOne(numberElement);
+    } else {
+        commitOperantTwo(numberElement);
+    }
+    outputToCurrentDisplay(numberElement);
+}
+
 function commitOperantOne(numberElement) {
     memory.operantOne += numberElement.getAttribute('data-input');
-    console.log(`memory.OperantOne = ${memory.operantOne}`)
 }
 
 function commitOperantTwo(numberElement) {
     memory.operantTwo += numberElement.getAttribute('data-input');
-    console.log(`memory.OperantTwo = ${memory.operantTwo}`)
 }
 
 function commitOperator(operatorElement) {
     memory.operator = operatorElement.getAttribute('data-input');
-}
-
-function isOperatorAlreadySelected() {
-    if (memory.operator === "") {
-        return false;
-    } else {
-        return true;
-    }
+    memory.decimalPresent = false
 }
 
 function outputToCurrentDisplay(element) {
@@ -114,17 +114,17 @@ function calculate(operantOne, operantTwo, operator) {
 }
 
 function add(num1, num2) {
-    return parseInt(num1) + parseInt(num2);
+    return parseFloat(num1) + parseFloat(num2);
 }
 
 function subtract(num1, num2) {
-    return parseInt(num1) - parseInt(num2);
+    return parseFloat(num1) - parseFloat(num2);
 }
 
 function multiply(num1, num2) {
-    return parseInt(num1) * parseInt(num2);
+    return parseFloat(num1) * parseFloat(num2);
 }
 
 function divide(num1, num2) {
-    return parseInt(num1) / parseInt(num2);
+    return parseFloat(num1) / parseFloat(num2);
 }
