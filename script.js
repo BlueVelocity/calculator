@@ -1,13 +1,13 @@
 let buttons = document.querySelectorAll('button');
-let display = document.querySelector('.display');
+let displayCurrent = document.querySelector('.display-current');
 
 buttons.forEach(element => element.addEventListener('click', () => {
     addToMemory(element.getAttribute('data-input'))
 }));
 
 function addToMemory(elementDataInput) {
-    let currentDisplayText = display.textContent;
-    display.textContent = currentDisplayText + elementDataInput
+    let displayCurrentText = displayCurrent.textContent;
+    displayCurrent.textContent = displayCurrentText + elementDataInput
 }
 
 function add(num1, num2) {

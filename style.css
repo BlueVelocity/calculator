@@ -1,3 +1,7 @@
+* {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 html, body {
     display: flex;
     justify-content: center;
@@ -28,28 +32,69 @@ html, body {
 
 .display {
     flex: 1;
-    background-color: white;
+    min-height: 88px;
+    background-color: rgb(255, 255, 255);
     margin: 2px;
     border-radius: 5px;
 }
 
+.display-previous, .display-current {
+    max-width: 164px;
+    margin: 5px;
+    text-align: end;
+}
+
+.display-previous {
+    height: 24px;
+    font-size: 24px;
+    font-weight: lighter;
+}
+
+.display-current {
+    font-size: 36px;
+    overflow-wrap: break-word;
+}
+
 button {
-    flex: 1;
-    font-size: 30px;
-    height: 48px;
-    width: 48px;
+    font-size: 36px;
+    height: 56px;
+    width: 56px;
+    box-sizing: border-box;
     margin: 2px;
     border: 1px black solid;
     border-radius: 5px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+button:hover {
+    background-color: rgb(145, 255, 218);
+}
+button:active {
+    background-color: rgb(112, 201, 171);
 }
 
 .button-operator {
     background-color: rgb(217, 195, 238);
 }
 
-.back-button {
-    flex: none;
+.button-operator:hover {
+    background-color: rgb(255, 129, 255);
+}
+
+.display-buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.display-button {
+    flex: 1;
+    height: auto;
+    font-size: 24px;
+    max-height: 54px;
+}
+
+.display-button:hover {
+    background-color: lightgrey;
 }
 
 .buttons-row {
