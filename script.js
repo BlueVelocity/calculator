@@ -132,13 +132,13 @@ function calculate(operantOne, operantTwo, operator) {
     if (checkIfFool(operantOne, operantTwo, operator) === false) {
         switch(operator) {
             case '+':
-                return add(operantOne, operantTwo);
+                return add(operantOne, operantTwo).toFixed(2);
             case '-':
-                return subtract(operantOne, operantTwo);
+                return subtract(operantOne, operantTwo).toFixed(2);
             case '*':
-                return multiply(operantOne, operantTwo);
+                return multiply(operantOne, operantTwo).toFixed(2);
             case '/':
-                return divide(operantOne, operantTwo);
+                return divide(operantOne, operantTwo).toFixed(2);
         }
     } else {
         return checkIfFool(operantOne, operantTwo, operator);
@@ -163,7 +163,7 @@ function divide(num1, num2) {
 
 function checkIfFool(input1, input2, operator) {
     if (parseFloat(input2) == 0 && operator == '/' && input1 != memory.tauntTwo && input1 != memory.tauntOne) {
-        return memory.tauntOne
+        return memory.tauntOne;
     } else if (input1 == memory.tauntOne || input1 == memory.tauntTwo)  {
         return memory.tauntTwo;
     } else {
