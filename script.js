@@ -50,6 +50,7 @@ function clearAll() {
     operantTwo = "";
     operator = "";
     displayCurrent.textContent = "";
+    displayPrevious.textContent = "";
 }
 
 function clearLeftoverOperant() {
