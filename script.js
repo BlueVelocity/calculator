@@ -1,6 +1,7 @@
 const elements = {
     numberButtons: document.querySelectorAll('.button-number'),
     operatorButtons: document.querySelectorAll('.button-operator'),
+    backButton: document.getElementById('button-backspace'),
     clearButton:  document.getElementById('button-clear'),
     clearAllButton: document.getElementById('button-clear-all'),
     decimalButton: document.getElementById('button-decimal'),
@@ -30,6 +31,19 @@ elements.operatorButtons.forEach(operatorElement => {
     })
 });
 
+elements.backButton.addEventListener('click', () => {
+    if (memory.operantOne != "" && memory.operator === "") {
+        memory.operantOne = memory.operantOne.slice(0, -1);
+        backspace();
+    } else if (memory.operator != "" && memory.operantTwo === ""){
+        memory.operator = "";
+        backspace();
+    } else if (memory.operantTwo != "") {
+        memory.operantTwo = memory.operantTwo.slice(0, -1);
+        backspace();
+    }
+});
+
 elements.clearButton.addEventListener('click', clearCurrent);
 
 elements.clearAllButton.addEventListener('click', clearAll);
@@ -50,6 +64,12 @@ function equals() {
     memory.operantTwo = "";
     memory.operator = "";
     memory.leftoverOperant = true;
+}
+
+function backspace() {
+    let tempString = elements.displayCurrent.textContent;
+    tempString = tempString.slice(0, -1);
+    elements.displayCurrent.textContent = tempString;
 }
 
 function clearCurrent() {
