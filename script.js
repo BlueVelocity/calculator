@@ -6,18 +6,20 @@ const displayCurrent = document.querySelector('.display-current');
 const displayPrevious = document.querySelector('.display-previous');
 
 let operantOne = "";
+let leftoverOperant = false;
 let operantTwo = "";
 let operator = "";
 let previousOperation = "";
 
 numberButtons.forEach(numberElement => {
     numberElement.addEventListener('click', () => {
-        outputToCurrentDisplay(numberElement)
         if (isOperatorAlreadySelected() === false) {
+            clearLeftoverOperant();
             commitOperantOne(numberElement);
         } else if (isOperatorAlreadySelected() === true) {
             commitOperantTwo(numberElement);
         }
+        outputToCurrentDisplay(numberElement)
     })
 });
 
@@ -40,6 +42,7 @@ function equals() {
     operantOne = displayCurrent.textContent;
     operantTwo = "";
     operator = "";
+    leftoverOperant = true;
 }
 
 function clearAll() {
@@ -47,6 +50,14 @@ function clearAll() {
     operantTwo = "";
     operator = "";
     displayCurrent.textContent = "";
+}
+
+function clearLeftoverOperant() {
+    if (leftoverOperant === true) {
+        leftoverOperant = false;
+        displayCurrent.textContent = "";
+        operantOne = "";
+    }
 }
 
 function commitOperantOne(numberElement) {
