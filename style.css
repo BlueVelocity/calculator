@@ -97,6 +97,10 @@ button:active {
     background-color: lightgrey;
 }
 
+.display-button:active {
+    background-color: grey;
+}
+
 .buttons-row {
     display: flex;
     flex-direction: row;

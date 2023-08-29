@@ -1,5 +1,6 @@
 const numberButtons = document.querySelectorAll('.button-number');
 const operatorButtons = document.querySelectorAll('.button-operator');
+const clearAllButton = document.getElementById('button-clear-all');
 const displayCurrent = document.querySelector('.display-current');
 
 let operantOne = "";
@@ -26,6 +27,15 @@ operatorButtons.forEach(operatorElement => {
         }
     })
 });
+
+clearAllButton.addEventListener('click', clearAll);
+
+function clearAll() {
+    operantOne = "";
+    operantTwo = "";
+    operator = "";
+    displayCurrent.textContent = "";
+}
 
 function commitOperantOne(numberElement) {
     operantOne += numberElement.getAttribute('data-input');
