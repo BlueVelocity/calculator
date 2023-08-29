@@ -15,7 +15,9 @@ const memory = {
     operantTwo: "",
     leftoverOperant: false,
     decimalPresent: false,
-    operator: ""
+    operator: "",
+    tauntOne: "fool",
+    tauntTwo: "gigafool"
 }
 
 elements.numberButtons.forEach(numberElement => {
@@ -67,9 +69,13 @@ function equals() {
 }
 
 function backspace() {
-    let tempString = elements.displayCurrent.textContent;
-    tempString = tempString.slice(0, -1);
-    elements.displayCurrent.textContent = tempString;
+    if (elements.displayCurrent.textContent === memory.tauntOne || elements.displayCurrent.textContent == memory.tauntTwo) {
+        clearCurrent();
+    } else {
+        let tempString = elements.displayCurrent.textContent;
+        tempString = tempString.slice(0, -1);
+        elements.displayCurrent.textContent = tempString;
+    }
 }
 
 function clearCurrent() {
@@ -156,10 +162,10 @@ function divide(num1, num2) {
 }
 
 function checkIfFool(input1, input2, operator) {
-    if (parseFloat(input2) == 0 && operator == '/' && input1 != "gigafool" && input1 != "fool") {
-        return "fool"
-    } else if (input1 == "fool" || input1 == "gigafool")  {
-        return "gigafool";
+    if (parseFloat(input2) == 0 && operator == '/' && input1 != memory.tauntTwo && input1 != memory.tauntOne) {
+        return memory.tauntOne
+    } else if (input1 == memory.tauntOne || input1 == memory.tauntTwo)  {
+        return memory.tauntTwo;
     } else {
         return false;
     }
