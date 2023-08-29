@@ -37,6 +37,7 @@ equalsButton.addEventListener('click', equals);
 function equals() {
     displayPrevious.textContent = displayCurrent.textContent;
     displayCurrent.textContent = calculate(operantOne, operantTwo, operator);
+    operantOne = displayCurrent.textContent;
     operantTwo = "";
     operator = "";
 }
