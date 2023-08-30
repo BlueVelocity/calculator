@@ -152,6 +152,8 @@ function calculate(operantOne, operantTwo, operator) {
                 return multiply(operantOneProxy, operantTwoProxy).toFixed(2);
             case '/':
                 return divide(operantOneProxy, operantTwoProxy).toFixed(2);
+            default:
+                return operantOne;
         }
     } else {
         return checkIfFool(operantOne, operantTwo, operator);
