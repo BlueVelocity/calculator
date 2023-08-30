@@ -62,7 +62,7 @@ elements.clearAllButton.addEventListener('click', clearAll);
 
 elements.decimalButton.addEventListener('click', () => {
     if (memory.decimalPresent === false) {
-        addToOperant(elements.decimalButton);
+        addToOperant(elements.decimalButton.getAttribute('data-input'));
         memory.decimalPresent = true;
     }
 });
