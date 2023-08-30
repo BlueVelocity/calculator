@@ -41,15 +41,23 @@ document.addEventListener('keyup', node => {
 });
 
 elements.numberButtons.forEach(numberElement => {
-    numberElement.addEventListener('click', () => {
+    numberElement.addEventListener('click', () => {    
         addToOperant(numberElement.getAttribute('data-input'))}
     );
 });
 
 elements.operatorButtons.forEach(operatorElement => {
     operatorElement.addEventListener('click', () => { 
-        if (memory.operator === "") {
-            commitOperator(operatorElement.getAttribute('data-input'));
+        if (elements.displayCurrent.textContent === memory.tauntOne || 
+            elements.displayCurrent.textContent == memory.tauntTwo) {
+            clearCurrent();
+            if (memory.operator === "") {
+                commitOperator(operatorElement.getAttribute('data-input'));
+            }
+        } else {
+            if (memory.operator === "") {
+                commitOperator(operatorElement.getAttribute('data-input'));
+            }
         }
     })
 });
@@ -102,7 +110,8 @@ function backspace() {
     }
 
     function backspaceDisplay() {
-        if (elements.displayCurrent.textContent === memory.tauntOne || elements.displayCurrent.textContent == memory.tauntTwo) {
+        if (elements.displayCurrent.textContent === memory.tauntOne || 
+            elements.displayCurrent.textContent == memory.tauntTwo) {
             clearCurrent();
         } else {
             let tempString = elements.displayCurrent.textContent;
@@ -153,7 +162,7 @@ function commitOperantTwo(number) {
 
 function commitOperator(operator) {
     memory.operator = operator;
-    memory.decimalPresent = false
+    memory.decimalPresent = false;
     outputToCurrentDisplay(operator);
 }
 
