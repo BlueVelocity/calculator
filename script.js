@@ -33,6 +33,10 @@ document.addEventListener('keyup', node => {
         memory.decimalPresent = true;
     } else if (node.key === 'Enter') {
         equals();
+    } else if (node.key === 'Delete') {
+        clearCurrent()
+    } else if (node.key === 'c') {
+        clearAll();
     }
 });
 
