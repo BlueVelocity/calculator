@@ -16,6 +16,7 @@ const memory = {
     leftoverOperant: false,
     decimalPresent: false,
     operator: "",
+    isInt: true,
     tauntOne: "fool",
     tauntTwo: "gigafool"
 }
@@ -129,8 +130,8 @@ function outputToCurrentDisplay(element) {
 }
 
 function calculate(operantOne, operantTwo, operator) {
-    let operantOneProxy = parseFloat(operantOne);
-    let operantTwoProxy = parseFloat(operantTwo);
+    let operantOneProxy = parseIntOrFloat(operantOne);
+    let operantTwoProxy = parseIntOrFloat(operantTwo);
     
     if (operantOne === "") {
         operantOneProxy = 0;
@@ -139,19 +140,17 @@ function calculate(operantOne, operantTwo, operator) {
     if (operantTwo === "") {
         operantTwoProxy = 0;
     }
-    
-    console.log(operantTwoProxy)
 
     if (checkIfFool(operantOne, operantTwo, operator) === false) {
         switch(operator) {
             case '+':
-                return add(operantOneProxy, operantTwoProxy).toFixed(2);
+                return add(operantOneProxy, operantTwoProxy);
             case '-':
-                return subtract(operantOneProxy, operantTwoProxy).toFixed(2);
+                return subtract(operantOneProxy, operantTwoProxy);
             case '*':
-                return multiply(operantOneProxy, operantTwoProxy).toFixed(2);
+                return multiply(operantOneProxy, operantTwoProxy);
             case '/':
-                return divide(operantOneProxy, operantTwoProxy).toFixed(2);
+                return divide(operantOneProxy, operantTwoProxy);
             default:
                 return operantOne;
         }
@@ -161,19 +160,47 @@ function calculate(operantOne, operantTwo, operator) {
 }
 
 function add(num1, num2) {
-    return num1 + num2;
+    if (isInt((num1+num2)) === false) {
+        return (num1 + num2).toFixed(2);
+    } else {
+        return num1 + num2;
+    }
 }
 
 function subtract(num1, num2) {
-    return num1 - num2;
+    if (isInt((num1-num2)) === false ) {
+        return (num1 - num2).toFixed(2);
+    } else {
+        return num1 - num2;
+    }
 }
 
 function multiply(num1, num2) {
-    return num1 * num2;
+    if (isInt((num1*num2)) === false) {
+        return (num1 * num2).toFixed(2);
+    } else {
+        return num1 * num2;
+    }
 }
 
 function divide(num1, num2) {
-    return num1 / num2;
+    if (isInt((num1/num2)) === false) {
+        return (num1 / num2).toFixed(2);
+    } else {
+        return num1 / num2;
+    }
+}
+
+function isInt(operant) {
+    return operant % 1 === 0;
+}
+
+function parseIntOrFloat(operant) {
+    if (operant % 1 === 0) {
+        return parseInt(operant);
+    } else {
+        return parseFloat(operant);
+    }
 }
 
 function checkIfFool(input1, input2, operator) {
