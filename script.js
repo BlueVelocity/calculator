@@ -21,31 +21,36 @@ const memory = {
     tauntTwo: "gigafool"
 }
 
+document.addEventListener('keyup', node => {
+    if (node.key >= 0 && node.key <= 9) {
+        addToOperant(node.key)
+    } else if (node.key == '+' || node.key == '-' || node.key == '*' || node.key == '/') {
+        if (memory.operator === "") {
+            commitOperator(node.key);
+        }
+    } else if (node.key === '.') {
+        addToOperant(node.key);
+        memory.decimalPresent = true;
+    } else if (node.key === 'Enter') {
+        equals();
+    }
+});
+
 elements.numberButtons.forEach(numberElement => {
-    numberElement.addEventListener('click', () => addToOperant(numberElement));
+    numberElement.addEventListener('click', () => {
+        addToOperant(numberElement.getAttribute('data-input'))}
+    );
 });
 
 elements.operatorButtons.forEach(operatorElement => {
     operatorElement.addEventListener('click', () => { 
         if (memory.operator === "") {
-            outputToCurrentDisplay(operatorElement);
-            commitOperator(operatorElement);
+            commitOperator(operatorElement.getAttribute('data-input'));
         }
     })
 });
 
-elements.backButton.addEventListener('click', () => {
-    if (memory.operantOne != "" && memory.operator === "") {
-        memory.operantOne = memory.operantOne.slice(0, -1);
-        backspace();
-    } else if (memory.operator != "" && memory.operantTwo === ""){
-        memory.operator = "";
-        backspace();
-    } else if (memory.operantTwo != "") {
-        memory.operantTwo = memory.operantTwo.slice(0, -1);
-        backspace();
-    }
-});
+elements.backButton.addEventListener('click', backspace);
 
 elements.clearButton.addEventListener('click', clearCurrent);
 
@@ -81,12 +86,25 @@ function equals() {
 }
 
 function backspace() {
-    if (elements.displayCurrent.textContent === memory.tauntOne || elements.displayCurrent.textContent == memory.tauntTwo) {
-        clearCurrent();
-    } else {
-        let tempString = elements.displayCurrent.textContent;
-        tempString = tempString.slice(0, -1);
-        elements.displayCurrent.textContent = tempString;
+    if (memory.operantOne != "" && memory.operator === "") {
+        memory.operantOne = memory.operantOne.slice(0, -1);
+        backspaceDisplay();
+    } else if (memory.operator != "" && memory.operantTwo === ""){
+        memory.operator = "";
+        backspaceDisplay();
+    } else if (memory.operantTwo != "") {
+        memory.operantTwo = memory.operantTwo.slice(0, -1);
+        backspaceDisplay();
+    }
+
+    function backspaceDisplay() {
+        if (elements.displayCurrent.textContent === memory.tauntOne || elements.displayCurrent.textContent == memory.tauntTwo) {
+            clearCurrent();
+        } else {
+            let tempString = elements.displayCurrent.textContent;
+            tempString = tempString.slice(0, -1);
+            elements.displayCurrent.textContent = tempString;
+        }
     }
 }
 
@@ -111,31 +129,32 @@ function clearLeftoverOperant() {
     }
 }
 
-function addToOperant(numberElement) {
+function addToOperant(number) {
     if (memory.operator === "") {
         clearLeftoverOperant();
-        commitOperantOne(numberElement);
+        commitOperantOne(number);
     } else {
-        commitOperantTwo(numberElement);
+        commitOperantTwo(number);
     }
-    outputToCurrentDisplay(numberElement);
+    outputToCurrentDisplay(number);
 }
 
-function commitOperantOne(numberElement) {
-    memory.operantOne += numberElement.getAttribute('data-input');
+function commitOperantOne(number) {
+    memory.operantOne += number;
 }
 
-function commitOperantTwo(numberElement) {
-    memory.operantTwo += numberElement.getAttribute('data-input');
+function commitOperantTwo(number) {
+    memory.operantTwo += number;
 }
 
-function commitOperator(operatorElement) {
-    memory.operator = operatorElement.getAttribute('data-input');
+function commitOperator(operator) {
+    memory.operator = operator;
     memory.decimalPresent = false
+    outputToCurrentDisplay(operator);
 }
 
-function outputToCurrentDisplay(element) {
-    let inputData = element.getAttribute('data-input');
+function outputToCurrentDisplay(number) {
+    let inputData = number;
     let displayCurrentText = elements.displayCurrent.textContent;
     elements.displayCurrent.textContent = displayCurrentText + inputData;
 }
