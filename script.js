@@ -129,16 +129,29 @@ function outputToCurrentDisplay(element) {
 }
 
 function calculate(operantOne, operantTwo, operator) {
+    let operantOneProxy = parseFloat(operantOne);
+    let operantTwoProxy = parseFloat(operantTwo);
+    
+    if (operantOne === "") {
+        operantOneProxy = 0;
+    } 
+    
+    if (operantTwo === "") {
+        operantTwoProxy = 0;
+    }
+    
+    console.log(operantTwoProxy)
+
     if (checkIfFool(operantOne, operantTwo, operator) === false) {
         switch(operator) {
             case '+':
-                return add(operantOne, operantTwo).toFixed(2);
+                return add(operantOneProxy, operantTwoProxy).toFixed(2);
             case '-':
-                return subtract(operantOne, operantTwo).toFixed(2);
+                return subtract(operantOneProxy, operantTwoProxy).toFixed(2);
             case '*':
-                return multiply(operantOne, operantTwo).toFixed(2);
+                return multiply(operantOneProxy, operantTwoProxy).toFixed(2);
             case '/':
-                return divide(operantOne, operantTwo).toFixed(2);
+                return divide(operantOneProxy, operantTwoProxy).toFixed(2);
         }
     } else {
         return checkIfFool(operantOne, operantTwo, operator);
@@ -146,19 +159,19 @@ function calculate(operantOne, operantTwo, operator) {
 }
 
 function add(num1, num2) {
-    return parseFloat(num1) + parseFloat(num2);
+    return num1 + num2;
 }
 
 function subtract(num1, num2) {
-    return parseFloat(num1) - parseFloat(num2);
+    return num1 - num2;
 }
 
 function multiply(num1, num2) {
-    return parseFloat(num1) * parseFloat(num2);
+    return num1 * num2;
 }
 
 function divide(num1, num2) {
-        return parseFloat(num1) / parseFloat(num2);
+    return num1 / num2;
 }
 
 function checkIfFool(input1, input2, operator) {
