@@ -31,7 +31,10 @@ html, body {
 }
 
 .display {
+    display: flex;
+    flex-direction: column;
     flex: 1;
+    justify-content: center;
     min-height: 88px;
     background-color: rgb(255, 255, 255);
     margin: 2px;
@@ -39,20 +42,21 @@ html, body {
 }
 
 .display-previous, .display-current {
+    flex: 1;
     max-width: 164px;
     margin: 5px;
     text-align: end;
+    overflow-wrap: break-word;
 }
 
 .display-previous {
-    height: 24px;
+    text-align: start;
     font-size: 24px;
-    font-weight: lighter;
+    font-weight: light;
 }
 
 .display-current {
     font-size: 36px;
-    overflow-wrap: break-word;
 }
 
 button {

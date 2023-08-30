@@ -61,9 +61,17 @@ elements.decimalButton.addEventListener('click', () => {
 elements.equalsButton.addEventListener('click', equals);
 
 function equals() {
-    elements.displayPrevious.textContent = elements.displayCurrent.textContent;
-    elements.displayCurrent.textContent = calculate(memory.operantOne, memory.operantTwo, memory.operator);
-    memory.operantOne = elements.displayCurrent.textContent;
+    let existingOperation = elements.displayCurrent.textContent;
+    let calculatedNumber = calculate(memory.operantOne, memory.operantTwo, memory.operator);
+    memory.operantOne = calculatedNumber;
+    if (calculatedNumber > 999999) {
+        calculatedNumber = Number.parseFloat(calculatedNumber).toExponential(2);
+        elements.displayPrevious.textContent = existingOperation;
+        elements.displayCurrent.textContent = calculatedNumber;
+    } else {
+        elements.displayPrevious.textContent = elements.displayCurrent.textContent;
+        elements.displayCurrent.textContent = calculatedNumber;
+    }
     memory.operantTwo = "";
     memory.operator = "";
     memory.leftoverOperant = true;
