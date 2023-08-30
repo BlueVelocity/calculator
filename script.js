@@ -175,7 +175,7 @@ function calculate(operantOne, operantTwo, operator) {
         operantTwoProxy = 0;
     }
 
-    if (checkIfFool(operantOne, operantTwo, operator) === false) {
+    if (checkIfFool(operantOneProxy, operantTwoProxy, operator) === false) {
         switch(operator) {
             case '+':
                 return add(operantOneProxy, operantTwoProxy);
@@ -189,7 +189,7 @@ function calculate(operantOne, operantTwo, operator) {
                 return operantOne;
         }
     } else {
-        return checkIfFool(operantOne, operantTwo, operator);
+        return checkIfFool(operantOneProxy, operantTwoProxy, operator);
     }
 }
 
