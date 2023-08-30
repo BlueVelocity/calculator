@@ -48,16 +48,8 @@ elements.numberButtons.forEach(numberElement => {
 
 elements.operatorButtons.forEach(operatorElement => {
     operatorElement.addEventListener('click', () => { 
-        if (elements.displayCurrent.textContent === memory.tauntOne || 
-            elements.displayCurrent.textContent == memory.tauntTwo) {
-            clearCurrent();
-            if (memory.operator === "") {
-                commitOperator(operatorElement.getAttribute('data-input'));
-            }
-        } else {
-            if (memory.operator === "") {
-                commitOperator(operatorElement.getAttribute('data-input'));
-            }
+        if (memory.operator === "") {
+            commitOperator(operatorElement.getAttribute('data-input'));
         }
     })
 });
@@ -79,18 +71,23 @@ elements.equalsButton.addEventListener('click', equals);
 
 function equals() {
     let existingOperation = elements.displayCurrent.textContent;
-    let calculatedNumber = calculate(memory.operantOne, memory.operantTwo, memory.operator);
-    
-    //introduces bigInts if the calculated number is too big
-    if (calculatedNumber > 99999) {
-        calculatedNumber = `${Number.parseFloat(calculatedNumber).toExponential(2)}n`;
-        memory.operantOne = calculatedNumber;
-        elements.displayPrevious.textContent = `${existingOperation} =`;
-        elements.displayCurrent.textContent = calculatedNumber.slice(0, -1);
+    if (checkIfFool(memory.operantOne) != false) {
+        elements.displayPrevious.textContent = `You =`;
+        elements.displayCurrent.textContent = checkIfFool(memory.operantOne);
     } else {
-        elements.displayPrevious.textContent = `${existingOperation} =`;
-        elements.displayCurrent.textContent = calculatedNumber;
-        memory.operantOne = calculatedNumber;
+        let calculatedNumber = calculate(memory.operantOne, memory.operantTwo, memory.operator);
+        
+        //introduces bigInts if the calculated number is too big
+        if (calculatedNumber > 99999) {
+            calculatedNumber = `${Number.parseFloat(calculatedNumber).toExponential(2)}n`;
+            memory.operantOne = calculatedNumber;
+            elements.displayPrevious.textContent = `${existingOperation} =`;
+            elements.displayCurrent.textContent = calculatedNumber.slice(0, -1);
+        } else {
+            elements.displayPrevious.textContent = `${existingOperation} =`;
+            elements.displayCurrent.textContent = calculatedNumber;
+            memory.operantOne = calculatedNumber;
+        }
     }
     memory.operantTwo = "";
     memory.operator = "";
