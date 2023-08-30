@@ -63,14 +63,17 @@ elements.equalsButton.addEventListener('click', equals);
 function equals() {
     let existingOperation = elements.displayCurrent.textContent;
     let calculatedNumber = calculate(memory.operantOne, memory.operantTwo, memory.operator);
-    memory.operantOne = calculatedNumber;
-    if (calculatedNumber > 999999) {
-        calculatedNumber = Number.parseFloat(calculatedNumber).toExponential(2);
-        elements.displayPrevious.textContent = existingOperation;
-        elements.displayCurrent.textContent = calculatedNumber;
+    
+    //introduces bigInts if the calculated number is too big
+    if (calculatedNumber > 99999) {
+        calculatedNumber = `${Number.parseFloat(calculatedNumber).toExponential(2)}n`;
+        memory.operantOne = calculatedNumber;
+        elements.displayPrevious.textContent = `${existingOperation} =`;
+        elements.displayCurrent.textContent = calculatedNumber.slice(0, -1);
     } else {
-        elements.displayPrevious.textContent = elements.displayCurrent.textContent;
+        elements.displayPrevious.textContent = `${existingOperation} =`;
         elements.displayCurrent.textContent = calculatedNumber;
+        memory.operantOne = calculatedNumber;
     }
     memory.operantTwo = "";
     memory.operator = "";
