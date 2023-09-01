@@ -23,7 +23,7 @@ const memory = {
 
 document.addEventListener('keyup', node => {
     if (node.key >= 0 && node.key <= 9) {
-        addToOperant(node.key)
+        addToOperant(node.key);
     } else if (node.key == '+' || node.key == '-' || node.key == '*' || node.key == '/') {
         if (memory.operator === "") {
             commitOperator(node.key);
@@ -34,9 +34,11 @@ document.addEventListener('keyup', node => {
     } else if (node.key === 'Enter') {
         equals();
     } else if (node.key === 'Delete') {
-        clearCurrent()
+        clearCurrent();
     } else if (node.key === 'c') {
         clearAll();
+    } else if (node.key ==='Backspace') {
+        backspace();
     }
 });
 
