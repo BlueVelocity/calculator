@@ -1,4 +1,4 @@
-# My Awesome Project
+# Calculator
 This calculator takes two operands and an operator as input and returns the
 calculated result. It also allows for further calculations based on the previous
 result.
